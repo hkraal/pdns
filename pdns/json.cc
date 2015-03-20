@@ -66,13 +66,13 @@ int intFromJson(const Value& container, const char* key, const int default_value
 string stringFromJson(const Value& container, const char* key)
 {
   if (!container.IsObject()) {
-    throw JsonException("Container was not an object.");
+	throw "Container was not an object.";
   }
   const Value& val = container[key];
   if (val.IsString()) {
     return val.GetString();
   } else {
-    throw JsonException("Key '" + string(key) + "' not present or not a String");
+	throw "Key '" + string(key) + "' not present or not a String";
   }
 }
 

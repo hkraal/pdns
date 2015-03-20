@@ -458,8 +458,12 @@ static void gatherComments(const Value& container, vector<Comment>& new_comments
     for(SizeType idx = 0; idx < comments.Size(); ++idx) {
       const Value& comment = comments[idx];
       if (!use_name_type_from_container) {
-        c.qname = stringFromJson(comment, "name");
-        c.qtype = stringFromJson(comment, "type");
+    	try {
+          c.qname = stringFromJson(comment, "name");
+          c.qtype = stringFromJson(comment, "type");
+    	} catch(std::exception &e) {
+    	  throw JsonException(string("Error parsing comment: ", e.what()));
+    	}
       }
       c.modified_at = intFromJson(comment, "modified_at", now);
       c.content = stringFromJson(comment, "content");
